@@ -12,6 +12,7 @@ Features
 * Does not delete source files by default. Though they can be automatically deleted with a command line switch.
 * Always uses maximum compression when creating archives
 * 100% compatible with gzip and gunzip tools
+* Written in Go so it's easy to cross-compile binaries for many platforms
 
 
 Rational
