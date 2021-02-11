@@ -10,13 +10,16 @@ alias arc := archive
 archive:
 	#!/bin/sh
 	just _term-wipe
-	tag="$(git tag --points-at master)"
+	tag="$(git tag --points-at main)"
 	app="{{PROJECT_NAME}}"
 	arc="${app}_${tag}"
 
 	# echo "app = '${app}'"
 	# echo "tag = '${tag}'"
 	# echo "arc = '${arc}'"
+	if [ ! -e distro ]; then
+		mkdir distro
+	fi
 	if [ -e dist ]; then
 		echo "Move dist -> distro/${arc}"
 		mv dist "distro/${arc}"
