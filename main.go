@@ -18,9 +18,15 @@ import (
 const (
 	AppName         = "GzipDate"
 	AppVersion      = "1.0.0"
-	argDeleteUsage  = "Delete the source file after successful processing"
-	argHelpUsage    = "Display this help info"
-	argVersionUsage = "Display this apps version number"
+	cliDeleteUsage  = "Delete the source file after successful processing"
+	cliHelpUsage    = "Display this help info"
+	cliVersionUsage = "Display this apps version number"
+	cliUsageHeader  = `%s
+
+USAGE: gzipdate [OPTIONS] [FILENAMES]
+
+OPTIONS:
+`
 )
 
 /*
@@ -44,12 +50,12 @@ func main() {
 	// Bespoke CLI Handler because flags is lame
 	for _, arg := range os.Args[1:] {
 		switch arg {
-		case "-d", "-del", "-delete":
+		case "-d", "-del", "-delete", "--delete":
 			deleteSource = true
-		case "-h", "-help":
+		case "-h", "-help", "--help":
 			helpOutput()
 			os.Exit(0)
-		case "-v", "-ver", "-version":
+		case "-v", "-ver", "-version", "--version":
 			fmt.Println(AppLabel)
 			os.Exit(0)
 		default:
@@ -192,15 +198,10 @@ func gzipEncode(filename string) error {
 }
 
 func helpOutput() {
-	// flag.Usage()
-	// fmt.Println("----")
-	fmt.Printf("USAGE: gzipdate [OPTIONS] FILENAMES\n\nOPTIONS:\n")
-	// flag.PrintDefaults()
-	// fmt.Println()
-
-	fmt.Printf("  -d | -del | -delete   %s\n", argDeleteUsage)
-	fmt.Printf("  -h | -help            %s\n", argHelpUsage)
-	fmt.Printf("  -v | -ver | -version  %s\n", argVersionUsage)
+	fmt.Printf(cliUsageHeader, AppLabel)
+	fmt.Printf("  -d | -del | -delete   %s\n", cliDeleteUsage)
+	fmt.Printf("  -h | -help            %s\n", cliHelpUsage)
+	fmt.Printf("  -v | -ver | -version  %s\n", cliVersionUsage)
 	fmt.Println()
 	fmt.Printf("Options may be interspersed with file names if so desired.\nThey are not position dependent.\n\n")
 }
