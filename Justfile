@@ -10,13 +10,16 @@ alias arc := archive
 archive:
 	#!/bin/sh
 	just _term-wipe
-	tag="$(git tag --points-at master)"
+	tag="$(git tag --points-at main)"
 	app="{{PROJECT_NAME}}"
 	arc="${app}_${tag}"
 
 	# echo "app = '${app}'"
 	# echo "tag = '${tag}'"
 	# echo "arc = '${arc}'"
+	if [ ! -e distro ]; then
+		mkdir distro
+	fi
 	if [ -e dist ]; then
 		echo "Move dist -> distro/${arc}"
 		mv dist "distro/${arc}"
@@ -51,6 +54,19 @@ distro:
 run +args='':
 	@just _term-wipe
 	go run main.go {{args}}
+
+
+# Run a test
+@test cmd="coverage":
+	just _term-wipe
+	just test-{{cmd}}
+
+# Run Go Unit Tests
+@test-coverage:
+	just _term-wipe
+	echo "You need to run:"
+	echo "go test -coverprofile=c.out"
+	echo "go tool cover -func=c.out"
 
 
 _term-wipe:
