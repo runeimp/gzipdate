@@ -1,5 +1,5 @@
-GzipDate
-========
+GzipDate v1.1.0
+===============
 
 Simple command line app for the specific creation and handling of Gzip archives.
 
