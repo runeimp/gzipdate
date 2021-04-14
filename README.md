@@ -7,7 +7,10 @@ Simple command line app for the specific creation and handling of Gzip archives.
 Features
 --------
 
-* Create gzip archives for each of a list of files, adding a file system safe [ISO-8601][ISO 8601 - Wikipedia] datatime value to the filename when creating the archive. The format is `YYYY-MM-DD_HHmmss`.
+* Create gzip archives for each of a list of files, adding a file system safe [ISO-8601][ISO 8601 - Wikipedia] datatime value to the filename when creating the archive.
+	* The format is either `YYYY-MM-DD_HHmmss_TZ` or `YYYY-MM-DD_HHmmss`.
+	* The default is `YYYY-MM-DD_HHmmss` but in v1.1+ you can use `YYYY-MM-DD_HHmmss_TZ` by specifying an environment variable `GZIPDATE=TIMEZONE` or `GZIPDATE=TZ`, or using the option `-t`, `-tz`, `-timezone`, or `--timezone` for a single execution.
+	* The default datetime is based on the current system time. But you can specify to use the modification time of the file with the options `-f`, `-file`, `-file-date`, or `--file-date`
 * Extract the archived file from Gzip archives restoring their original names if available. The original name is always available for archives created by GzipDate.
 * Does not delete source files by default. Though they can be automatically deleted with a command line switch.
 * Always uses maximum compression when creating archives
@@ -20,35 +23,45 @@ Usage Examples
 
 ### Help
 
-```text
-$ gzipdate -h
-GzipDate v1.0.0
+```bash
+runeimp$ gzipdate -h
+GzipDate v1.1.0
 
 USAGE: gzipdate [OPTIONS] [FILENAMES]
 
 OPTIONS:
-  -d | -del | -delete   Delete the source file after successful processing
-  -h | -help            Display this help info
-  -v | -ver | -version  Display this apps version number
+  -d | -del  | --delete     Delete the source file after processing
+  -f | -file | --file-date  Use the files modification time for the date
+                            instead of the current time
+  -h | -help | --help       Display this help info
+  -t | -tz   | --timezone   Turn the timezone feature on
+  -v | -ver  | --version    Display this apps version number
+  --                        Disable option parsing and consider all following
+                            arguments as file names only
 
-Options may be interspersed with file names if so desired.
-They are not position dependent.
+
+Options are not position dependent and may be interspersed with file names.
+POSIX options in the first column can be grouped together with the exception
+of -h and -v which must be independent. Long options in the third column can
+use a Multics style single hyphen prefix or the Gnu style double hyphen prefix
+as displayed.
+
 ```
 
 ### Brogue Save Game Backup
 
-```text
+```bash
 runeimp$ ls -hl
 total 112
 -rw-r--r--  1 runeimp  staff    54K Apr 16 10:33 Saved game.broguesave
 
-runeimp$ gzipdate -d *
-Saving 21400 bytes from "Saved game.broguesave" to "Saved game.broguesave_2020-04-16_104846.gz"
+runeimp$ gzipdate -dt *
+Saving 21400 bytes from "Saved game.broguesave" to "Saved game.broguesave_2020-04-16_104846_PST.gz"
     Deleting source: "Saved game.broguesave"
 
 runeimp$ ls -hl
 total 48
--rw-r--r--  1 runeimp  staff    21K Apr 16 10:48 Saved game.broguesave_2020-04-16_104846.gz
+-rw-r--r--  1 runeimp  staff    21K Apr 16 10:48 Saved game.broguesave_2020-04-16_104846_PST.gz
 
 runeimp$ gzipdate *.gz
 54984 B written to "Saved game.broguesave"
@@ -56,7 +69,7 @@ runeimp$ gzipdate *.gz
 runeimp$ ls -hl
 total 160
 -rw-r--r--  1 runeimp  staff    54K Apr 16 10:33 Saved game.broguesave
--rw-r--r--  1 runeimp  staff    21K Apr 16 10:48 Saved game.broguesave_2020-04-16_104846.gz
+-rw-r--r--  1 runeimp  staff    21K Apr 16 10:48 Saved game.broguesave_2020-04-16_104846_PST.gz
 ```
 
 Note that the size and date of "Saved game.broguesave" is the same in the original as in the version restored from the archive.
@@ -74,6 +87,7 @@ Installation
 ------------
 
 See the [installation docs](INSTALL.md)
+
 
 
 [ISO 8601 - Wikipedia]: https://en.wikipedia.org/wiki/ISO_8601

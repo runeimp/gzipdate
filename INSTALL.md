@@ -5,18 +5,18 @@ Installation
 1. Download a release from `https://github.com/runeimp/gzipdate/releases`
 2. For archives or packages:
 	* For Zip archives (`.zip`) I recommend:
-		1. `unzip gzipdate_1.0.1_windows_x86_64.zip`
-		2. `cd gzipdate_1.0.1_windows_x86_64`
+		1. `unzip gzipdate_1.1.0_windows_x86_64.zip`
+		2. `cd gzipdate_1.1.0_windows_x86_64`
 		3. `copy gzipdate.exe YOUR_PREFERED_PATH`
 	* For Tar-Gzip archives (`.tar.gz`) I recommend:
-		1. `tar xfz gzipdate_1.0.1_freebsd_x86_64.tar.gz`
-		2. `cd gzipdate_1.0.1_freebsd_x86_64`
+		1. `tar xfz gzipdate_1.1.0_freebsd_x86_64.tar.gz`
+		2. `cd gzipdate_1.1.0_freebsd_x86_64`
 		3. `cp gzipdate YOUR_PREFERED_PATH` or `ln -s gzipdate YOUR_PREFERED_PATH/gzipdate` if your source folder is not going to get deleted later.
 	* For the Debian packages (`.deb`) I recommend:
-		* `sudo dpkg -i /path/to/gzipdate_1.0.1_linux_x86_64.deb` to install and upgrade. There are no dependencies so dpkg is fine for this task.
+		* `sudo dpkg -i /path/to/gzipdate_1.1.0_linux_x86_64.deb` to install and upgrade. There are no dependencies so dpkg is fine for this task.
 	* For the RedHat Package Manager (`.rpm`) I recommend:
-		* `rpm -i /path/to/gzipdate_1.0.1_linux_x86_64.rpm` to install
-		* `rpm -U /path/to/gzipdate_1.0.1_linux_x86_64.rpm` to upgrade
+		* `rpm -i /path/to/gzipdate_1.1.0_linux_x86_64.rpm` to install
+		* `rpm -U /path/to/gzipdate_1.1.0_linux_x86_64.rpm` to upgrade
 3. Copy the binary to a directory in your PATH and make sure it is executable for your system. It _should_ be ready to go by default.
 
 

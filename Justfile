@@ -56,6 +56,19 @@ run +args='':
 	go run main.go {{args}}
 
 
+# Run a test
+@test cmd="coverage":
+	just _term-wipe
+	just test-{{cmd}}
+
+# Run Go Unit Tests
+@test-coverage:
+	just _term-wipe
+	echo "You need to run:"
+	echo "go test -coverprofile=c.out"
+	echo "go tool cover -func=c.out"
+
+
 _term-wipe:
 	#!/bin/sh
 	if [[ ${#VISUAL_STUDIO_CODE} -gt 0 ]]; then
